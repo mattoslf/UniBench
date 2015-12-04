@@ -1,0 +1,66 @@
+CC=clang
+
+BENCH_DIR=./benchmarks/$(BENCH_NAME)
+BUILD_DIR=$(BENCH_DIR)/build
+SRC_DIR=$(BENCH_DIR)/src
+LOG_DIR=$(BENCH_DIR)/log
+BIN=$(BUILD_DIR)/$(NAME)
+HOME_DIR=`pwd`
+
+C_FLAGS=-fopenmp -lm -omptargets=spir64-unknown-unknown
+
+compile: $(SRC_DIR)/*.c 
+	if [ ! -d $(BUILD_DIR) ]; then mkdir $(BUILD_DIR); fi; \
+	if [ ! -d $(LOG_DIR) ]; then mkdir $(LOG_DIR); fi; \
+	rm -rf $(BUILD_DIR)/_kernel_*; \
+	echo "Compiling" $(BENCH_NAME); \
+	echo "\n---------------------------------------------------------" >> $(LOG_DIR)/$(NAME).compile; \
+	date >> $(LOG_DIR)/$(NAME).compile; \
+	echo "$(CC) $(C_FLAGS) $(SRC_DIR)/*.c -o $(BIN)" 2>> $(LOG_DIR)/$(NAME).compile; \
+	$(CC) $(C_FLAGS) $(SRC_DIR)/*.c -o $(BIN) 2>> $(LOG_DIR)/$(NAME).compile; \
+	mv _kernel_* $(BUILD_DIR)/
+	echo "\n"
+
+run:
+	if [ ! -d $(BUILD_DIR) ]; then mkdir $(BUILD_DIR); fi; \
+	if [ ! -d $(LOG_DIR) ]; then mkdir $(LOG_DIR); fi; \
+	if [ ! -s $(BIN) ]; then \
+	echo "Compiling" $(BENCH_NAME); \
+	echo "\n---------------------------------------------------------" >> $(LOG_DIR)/$(NAME).compile; \
+	date >> $(LOG_DIR)/$(NAME).compile; \
+	echo "$(CC) $(C_FLAGS) $(SRC_DIR)/*.c -o $(BIN)" >> $(LOG_DIR)/$(NAME).compile; \
+	rm -rf $(BUILD_DIR)/_kernel_*; $(CC) $(C_FLAGS) $(SRC_DIR)/*.c -o $(BIN) 2>> $(LOG_DIR)/$(NAME).compile; mv _kernel_* $(BUILD_DIR)/; fi; \
+	echo "\n---------------------------------------------------------" >> $(LOG_DIR)/$(NAME).execute; \
+	date >> $(LOG_DIR)/$(NAME).execute; \
+	cd $(BUILD_DIR); \
+	echo "Running" $(BENCH_NAME); \
+	echo "./$(NAME)" >> ../log/$(NAME).execute; \
+	./$(NAME) >> ../log/$(NAME).tmp; \
+	cat ../log/$(NAME).tmp; \
+	cat ../log/$(NAME).tmp >> ../log/$(NAME).execute; \
+	rm ../log/$(NAME).tmp; \
+	echo ""
+
+bitcode: $(SRC_DIR)/*.c 
+	if [ ! -d $(BUILD_DIR) ]; then mkdir $(BUILD_DIR); fi; \
+	if [ ! -d $(LOG_DIR) ]; then mkdir $(LOG_DIR); fi; \
+	rm -rf $(BUILD_DIR)/_kernel_*; \
+	echo "Compiling" $(BENCH_NAME); \
+	echo "\n---------------------------------------------------------" >> $(LOG_DIR)/$(NAME).compile; \
+	date >> $(LOG_DIR)/$(NAME).compile; \
+	echo "$(CC) $(C_FLAGS) -emit-llvm $(SRC_DIR)/*.c -S -o $(BIN).ll" 2>> $(LOG_DIR)/$(NAME).compile; \
+	$(CC) $(C_FLAGS) -emit-llvm $(SRC_DIR)/*.c -S -o $(BIN).ll 2>> $(LOG_DIR)/$(NAME).compile; \
+	echo "$(CC) $(C_FLAGS) $(BIN).ll -o $(BIN)" 2>> $(LOG_DIR)/$(NAME).compile; \
+	$(CC) $(C_FLAGS) $(BIN).ll -o $(BIN); \
+	mv _kernel_* $(BUILD_DIR)/; \
+	echo "Bitcode generated in the file" $(BIN).ll; \
+	echo "\n"
+
+cleanall:
+	rm -rf ./benchmarks/*/*/build/* ./benchmarks/*/*/log/*
+
+cleanbin:
+	rm -rf ./benchmarks/*/*/build/*
+
+cleanlog:
+	rm -rf ./benchmarks/*/*/log/*
