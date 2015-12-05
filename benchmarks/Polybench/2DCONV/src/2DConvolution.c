@@ -61,9 +61,8 @@ void conv2D_OMP(DATA_TYPE* A, DATA_TYPE* B)
   c12 = -0.3;  c22 = +0.6;  c32 = -0.9;
   c13 = +0.4;  c23 = +0.7;  c33 = +0.10;
 
-  //There is no loop carry dependence, but to perform better we use collapse equals 1
   #pragma omp target map(to: A[:NI*NJ]) map (from: B[:NI*NJ]) device (GPU_DEVICE)
-  #pragma omp parallel for collapse(1)
+  #pragma omp parallel for
   for (i = 1; i < NI - 1; ++i)
     {
       for (j = 1; j < NJ - 1; ++j)

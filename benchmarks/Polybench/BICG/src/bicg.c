@@ -25,7 +25,7 @@
 #define NX 8192
 #define NY 8192
 
-#define GPU_DEVICE 0
+#define GPU_DEVICE 1
 
 #ifndef M_PI
 #define M_PI 3.14159
