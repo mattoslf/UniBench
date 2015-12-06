@@ -1,0 +1,18 @@
+#=========================================================================
+# This file specifies intentionally untracked files that git should ignore.
+#=========================================================================
+
+# Temp files created by most text editors.
+*~
+
+# Merge files created by git.
+*.orig
+
+# OS X specific files.
+.DS_store
+
+# files generated in the build process
+**/build
+
+# Log Files
+**/log
