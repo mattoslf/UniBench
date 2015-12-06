@@ -25,7 +25,7 @@
 #define GPU_DEVICE 1
 
 /* Problem size */
-#define tmax 100
+#define tmax 500
 #define NX 2048
 #define NY 2048
 
