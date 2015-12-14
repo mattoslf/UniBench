@@ -7,7 +7,7 @@
 #define STR_SIZE	256
 
 /* mptogpu */
-#define GPU_DEVICE 0
+#define GPU_DEVICE 1
 #define PERCENT_DIFF_ERROR_THRESHOLD 0.05
 
 /* maximum power density possible (say 300W for a 10mm x 10mm chip)	*/

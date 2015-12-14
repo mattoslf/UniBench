@@ -10,7 +10,7 @@
 #include "../../common/rodiniaUtilFunctions.h"
 
 
-#define GPU_DEVICE 0
+#define GPU_DEVICE 1
 #define ERROR_THRESHOLD 0.05
 
 //#define NUM_THREAD 4

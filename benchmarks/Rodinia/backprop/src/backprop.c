@@ -16,7 +16,7 @@
 #include "../../common/rodiniaUtilFunctions.h"
 
 #define OPEN
-#define GPU_DEVICE 0
+#define GPU_DEVICE 1
 #define ERROR_THRESHOLD 0.00
 
 #define ABS(x)          (((x) > 0.0) ? (x) : (-(x)))

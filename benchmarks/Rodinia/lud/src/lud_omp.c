@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <omp.h>
-#define GPU_DEVICE 0
+#define GPU_DEVICE 1
 
 void lud_omp_cpu(float *a, int size)
 {
