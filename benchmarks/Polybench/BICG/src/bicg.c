@@ -111,7 +111,7 @@ void bicg_OMP(DATA_TYPE* A, DATA_TYPE* r, DATA_TYPE* s, DATA_TYPE* p, DATA_TYPE*
 
   #pragma omp target device (GPU_DEVICE) map(to: A[:NX*NY], p[:NY], r[:NX]) map(tofrom: s[:NY], q[:NX])
   {
-	  #pragma omp parallel for
+	  #pragma omp parallel for collapse(1)
 	  for (j = 0; j < NY; j++)
 	  {
 		for (i = 0; i < NX; i++)
@@ -120,7 +120,7 @@ void bicg_OMP(DATA_TYPE* A, DATA_TYPE* r, DATA_TYPE* s, DATA_TYPE* p, DATA_TYPE*
 	  	}
 	  }
 
-	   #pragma omp parallel for
+	   #pragma omp parallel for collapse(1)
 	   for (i = 0; i < NX; i++)
 	   {
 		q[i] = 0.0;

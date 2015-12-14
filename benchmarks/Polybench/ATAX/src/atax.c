@@ -115,7 +115,7 @@ void atax_OMP(DATA_TYPE* A, DATA_TYPE* x, DATA_TYPE* y, DATA_TYPE* tmp)
 
   //Note that the Loop has been reversed
   #pragma omp target map(to: A[:NX*NY], tmp[:NX]) map(from: y[:NY]) 
-  #pragma omp parallel for
+  #pragma omp parallel for collapse(1)
   for (j = 0; j < NY; j++)
     for (i = 0; i < NX; i++){
       {
