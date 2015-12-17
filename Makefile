@@ -9,6 +9,9 @@ include $(BENCH_MK)
 SRC_MK=$(BENCH_DIR)/src/Makefile
 include $(SRC_MK)
 
+$(BENCH_DIR)/build/$(BENCH_NAME):
+	make compile
+
 $(BENCH_DIR)/build:
 	mkdir $(BENCH_DIR)/build
 
@@ -33,7 +36,7 @@ compile: $(BENCH_DIR)/build $(BENCH_DIR)/log
 	rm -f _kernel*.cl~
 	echo ""
 
-run: compile
+run: $(BENCH_DIR)/build/$(BENCH_NAME)
 	cd $(BENCH_DIR)/build;\
 	echo "Running" $(BENCH_NAME); \
 	echo "./$(BENCH_NAME) $(INPUT_FLAGS)" >> ../log/$(BENCH_NAME).execute; \
