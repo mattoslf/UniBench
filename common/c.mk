@@ -1,1 +1,1 @@
-COMMON_FLAGS=-fopenmp -omptargets=spir64-unknown-unknown -fno-verbose-asm
+COMMON_FLAGS=-fopenmp -omptargets=opencl-unknown-unknown -rtl-mode=profile
