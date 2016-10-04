@@ -32,8 +32,8 @@ compile: $(BENCH_DIR)/build $(BENCH_DIR)/log
 	date >> $(BENCH_DIR)/log/$(BENCH_NAME).compile; \
 	echo "$(CC) $(COMMON_FLAGS) $(BENCH_FLAGS) $(AUX_SRC) $(SRC_OBJS) -o $(BENCH_DIR)/build/$(BENCH_NAME)" 2>> $(BENCH_DIR)/log/$(NAME).compile; \
 	$(CC) $(COMMON_FLAGS) $(BENCH_FLAGS) $(AUX_SRC) $(SRC_OBJS) -o $(BENCH_DIR)/build/$(BENCH_NAME) 2>> $(BENCH_DIR)/log/$(BENCH_NAME).compile; \
-	mv _kernel*.cl _kernel*.bc $(BENCH_DIR)/build/; \
-	rm -f _kernel*.cl~
+	mv kernel*.cl kernel*.bc $(BENCH_DIR)/build/; \
+	rm -f kernel*.cl~
 	echo ""
 
 run: $(BENCH_DIR)/build/$(BENCH_NAME)
