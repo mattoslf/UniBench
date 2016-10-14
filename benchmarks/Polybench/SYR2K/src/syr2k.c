@@ -23,8 +23,8 @@
 #define PERCENT_DIFF_ERROR_THRESHOLD 0.05
 
 /* Problem size */
-#define N 2048
-#define M 2048
+#define N 1024
+#define M 1024
 
 #define GPU_DEVICE 1
 
