@@ -22,8 +22,8 @@
 #define GPU_DEVICE 1
 
 /* Problem size */
-#define N 1024
-#define M 1024
+#define N 2048
+#define M 2048
 
 /* Declared constant values for alpha and beta */
 /* (same as values in PolyBench 2.0) */
